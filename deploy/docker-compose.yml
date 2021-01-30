@@ -16,15 +16,12 @@ version: '3'
 services:
   # ORDS service
   ords:
-    build:
-      context: ../../ords/ol7_ords/
-      dockerfile: Dockerfile
     depends_on:
       - db
-    image: ol7_ords:latest
+    image: bayeslearner/ol7_ords
     # Comment out volume if you don't care about a persistent CATALINA_BASE.
-    volumes:
-      - ~/volumes/ol7_19_ords_tomcat:/u01/config/instance1
+    #volumes:
+      #- ~/volumes/ol7_19_ords_tomcat:/u01/config/instance1
     environment:
       - DB_HOSTNAME=db
       - DB_PORT=1521
@@ -46,14 +43,10 @@ services:
 
   # Oracle Database service
   db:
-    build:
-      context: ../../database/ol7_19/
-      dockerfile: Dockerfile
-    image: ol7_19:latest
+    image: bayeslearner/ol7_19
     # Use persistent volume of your choice.
-    volumes:
-      #- db_data:/u02
-      - ~/volumes/ol7_19_ords_db:/u02
+    #volumes:
+      #- ~/volumes/ol7_19_ords_db:/u02
     environment:
       - SYS_PASSWORD=SysPassword1
       - PDB_PASSWORD=PdbPassword1
